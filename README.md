@@ -100,14 +100,13 @@ Dengan memanfaatkan model **XGBoost** dan teknik interpretasi seperti **Feature 
 
 ---
 
-## 📊 Dashboard Interaktif
+## 📊 Dashboard Visualisasi
 
-Proyek ini juga dilengkapi dengan **dashboard interaktif** yang memungkinkan tim HR mengeksplorasi data attrition secara visual dan prediktif.
+Berikut adalah tampilan dashboard interaktif yang dibuat untuk membantu tim HR menganalisis faktor penyebab attrition:
 
-📁 *[Tempatkan file dashboard Anda di sini, contoh: `dashboard/streamlit_app.py`]*  
-📌 *Instruksi penggunaan dan instalasi ada di bagian README proyek ini.*
+![Dashboard Visualisasi Attrition](https://github.com/giansrt/prediction_of_attrition_Employees/blob/main/giansirait-dashboard.png?raw=true)
+
 
 ---
 
-## 🗂️ Struktur Folder yang Disarankan
 
