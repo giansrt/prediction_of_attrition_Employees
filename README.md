@@ -104,7 +104,7 @@ Dengan memanfaatkan model **XGBoost** dan teknik interpretasi seperti **Feature 
 
 Berikut adalah tampilan dashboard interaktif yang dibuat untuk membantu tim HR menganalisis faktor penyebab attrition:
 
-![Dashboard Visualisasi Attrition](https://github.com/giansrt/prediction_of_attrition_Employees/blob/main/giansirait-dashboard.png?raw=true)
+![Dashboard Visualisasi Attrition](giansirait-dashboard.png)
 
 
 ---
