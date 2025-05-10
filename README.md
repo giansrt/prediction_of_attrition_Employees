@@ -1,87 +1,96 @@
 # 📊 Analisis Attrition Karyawan dengan XGBoost & SHAP
 
-## 🎯 Tujuan Proyek
+## 1. 🧠 Business Understanding
 
-Proyek ini bertujuan untuk membantu tim HRD perusahaan **Jaya Jaya Maju** dalam memahami bagaimana faktor-faktor seperti jabatan, pengalaman kerja, kondisi lingkungan, dan beban kerja memengaruhi **attrition rate** (tingkat pengunduran diri) karyawan. 
+Perusahaan Jaya Jaya Maju mengalami tingkat pengunduran diri (attrition) karyawan yang signifikan dalam beberapa tahun terakhir. Untuk menjaga stabilitas organisasi dan efisiensi operasional, penting untuk memahami faktor-faktor yang mendorong karyawan mengundurkan diri.
 
-Dengan memanfaatkan model **XGBoost** dan teknik interpretasi seperti **Feature Importance** dan **SHAP**, tim dapat mengidentifikasi fitur yang paling mempengaruhi keputusan karyawan untuk resign.
+## 2. ❓ Permasalahan Bisnis
 
----
+- Apa saja faktor utama yang menyebabkan karyawan resign?
+- Bagaimana cara mengidentifikasi karyawan dengan risiko tinggi untuk mengundurkan diri?
+- Bagaimana HR dapat mengambil langkah preventif berdasarkan data?
 
-## 🔍 Analisis Feature Importance & SHAP
+## 3. 🔎 Cakupan Proyek
 
-### 1. Global Feature Importance (SHAP Values)
+Proyek ini berfokus pada:
+- Membangun model prediksi attrition menggunakan algoritma XGBoost.
+- Menganalisis interpretabilitas model menggunakan SHAP dan Feature Importance.
+- Memberikan insight berbasis data untuk mendukung pengambilan keputusan strategis oleh tim HR.
 
-#### ✅ Fitur Paling Dominan:
-- **StockOptionLevel**  
-  → Karyawan dengan opsi saham rendah cenderung lebih mungkin resign.
-- **EnvironmentSatisfaction**  
-  → Kepuasan lingkungan kerja yang rendah meningkatkan risiko resign.
-- **OverTime_Yes**  
-  → Karyawan yang sering lembur memiliki risiko resign lebih tinggi.
-- **JobInvolvement**  
-  → Keterlibatan rendah dalam pekerjaan berkorelasi dengan peningkatan attrition.
+## 4. ⚙️ Persiapan
 
-#### 🧠 Interpretasi Bisnis:
-- Evaluasi ulang kebijakan terkait **opsi saham**, **lingkungan kerja**, dan **lembur** untuk mencegah attrition.
+### 📂 Sumber Data:
+- Dataset internal perusahaan mengenai informasi karyawan (demografi, jabatan, pengalaman kerja, kepuasan kerja, dll).
+- Fitur target: Attrition (Yes/No)
 
----
-
-### 2. SHAP Summary Plot (Analisis Multivariat)
-
-#### 📌 Dampak Fitur pada Prediksi:
-- **OverTime_Yes**  
-  → Titik merah (nilai tinggi) di sebelah kanan menunjukkan karyawan lembur lebih berisiko resign.
-- **EnvironmentSatisfaction**  
-  → Nilai SHAP negatif dari kepuasan rendah menunjukkan potensi resign tinggi.
-- **StockOptionLevel**  
-  → Semakin rendah opsi saham (warna biru), semakin tinggi risiko resign.
-
-#### 📚 Pola Menarik:
-- **EducationField_Life Sciences / Medical**  
-  → Cenderung lebih stabil (nilai SHAP negatif).
-- **MaritalStatus_Divorced**  
-  → Cenderung meningkatkan risiko resign.
-- **MaritalStatus_Married**  
-  → Cenderung mengurangi risiko resign.
+### 💻 Setup Environment:
+- Python (Scikit-Learn, XGBoost, SHAP, Pandas, Matplotlib)
+- Jupyter Notebook
+- Streamlit (untuk visualisasi dashboard)
 
 ---
 
-### 3. Feature Importance dari Model
+## 5. 📈 Analisis Model & Interpretabilitas
 
-#### 📌 Konsistensi dengan SHAP:
-- Fitur utama tetap: **StockOptionLevel**, **EnvironmentSatisfaction**, **OverTime_Yes**.
+### A. Global Feature Importance (SHAP)
 
-#### 🔄 Perbedaan:
-- **JobRole_Manufacturing Director** muncul sebagai penting di feature importance tapi tidak di SHAP, menunjukkan adanya interaksi kompleks dalam model.
+**Fitur paling dominan:**
+- `StockOptionLevel`  
+- `EnvironmentSatisfaction`  
+- `OverTime_Yes`  
+- `JobInvolvement`
 
-#### 💡 Fitur Lain yang Relevan:
-- **WorkLifeBalance**  
-  → Keseimbangan kerja-hidup yang buruk meningkatkan risiko resign.
-- **JobSatisfaction**  
-  → Kepuasan kerja rendah berkontribusi terhadap keputusan resign.
+🧠 Interpretasi:
+- Opsi saham dan kondisi lingkungan kerja sangat memengaruhi keputusan resign.
+- Lembur menjadi faktor risiko utama yang dapat dimitigasi oleh HR.
 
----
+### B. SHAP Summary Plot (Multivariat)
 
-## 🧾 Kesimpulan
+**Insight utama:**
+- `OverTime_Yes` → Karyawan yang sering lembur (nilai SHAP positif) lebih cenderung resign.
+- `EnvironmentSatisfaction` → Semakin tidak puas, semakin besar kemungkinan resign.
+- `MaritalStatus_Divorced` → Berhubungan positif dengan keputusan resign.
+- `EducationField_Life Sciences / Medical` → Lebih stabil.
 
-### Faktor Utama Penyebab Resign:
+### C. Feature Importance dari Model
 
-1. **Kebijakan Kompensasi**
-   - **StockOptionLevel** & **JobLevel** rendah menunjukkan karyawan merasa kurang dihargai.
+**Fitur penting yang konsisten:**
+- `StockOptionLevel`, `EnvironmentSatisfaction`, `OverTime_Yes`
 
-2. **Beban Kerja**
-   - **OverTime** & **JobInvolvement** rendah menandakan beban kerja tidak seimbang.
-
-3. **Lingkungan Kerja**
-   - **EnvironmentSatisfaction** & **JobSatisfaction** rendah mencerminkan budaya kerja yang perlu evaluasi.
-
-4. **Faktor Demografi**
-   - Karyawan dengan **MaritalStatus_Divorced** dan **Gender_Female** cenderung lebih rentan resign *(tergantung konteks data)*.
+**Perbedaan:**
+- `JobRole_Manufacturing Director` muncul signifikan di feature importance tapi tidak di SHAP → indikasi adanya interaksi kompleks dalam model.
 
 ---
 
-## ✅ Rekomendasi untuk HR
+## 6. 📊 Business Dashboard
+
+Visualisasi interaktif disediakan untuk membantu tim HR:
+- Menyaring dan menganalisis faktor penyebab attrition
+- Memahami distribusi risiko resign per departemen/jabatan
+- Menyusun strategi retention berbasis data
+
+![Dashboard Overview](giansirait-dashboard.png)
+
+---
+
+## 7. 🧾 Kesimpulan
+
+**Faktor-faktor utama penyebab attrition:**
+1. 💰 Kompensasi  
+   - `StockOptionLevel` & `JobLevel` rendah → merasa kurang dihargai.
+
+2. ⚖️ Beban Kerja  
+   - `OverTime` & `JobInvolvement` rendah → beban kerja tidak seimbang.
+
+3. 🌱 Lingkungan Kerja  
+   - `EnvironmentSatisfaction` & `JobSatisfaction` rendah → budaya kerja perlu evaluasi.
+
+4. 👥 Demografi  
+   - `MaritalStatus_Divorced` dan `Gender_Female` → cenderung lebih rentan resign *(tergantung konteks data)*.
+
+---
+
+## 8. ✅ Rekomendasi Action Items
 
 1. **Tingkatkan Kepuasan Lingkungan Kerja**  
    - Laksanakan program feedback rutin dari karyawan.  
@@ -97,15 +106,3 @@ Dengan memanfaatkan model **XGBoost** dan teknik interpretasi seperti **Feature 
 4. **Fleksibilitas Kerja**  
    - Terapkan program kerja dari rumah (WFH) sebagian atau penuh waktu.  
    - Dorong keseimbangan kehidupan kerja (Work-Life Balance) untuk meningkatkan produktivitas.
-
----
-
-## 📊 Dashboard Visualisasi
-
-Berikut adalah tampilan dashboard interaktif yang dibuat untuk membantu tim HR menganalisis faktor penyebab attrition:
-
-![Dashboard Overview](giansirait-dashboard.png)
-
----
-
-
